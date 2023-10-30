@@ -58,7 +58,7 @@ int main() {
                 else{
                     printf("\nBem vindo a exportacao de tarefas\n");
                     int export;
-                    printf("\n1. Exportar por prioridade\n2. Exportar por categoria\n3. Exportar tudo\n");
+                    printf("\n1. Exportar por prioridade\n2. Exportar por categoria\n3. Exportar por prioridade e categoria\n");
                     scanf("%d", &export);
 
                     if(export == 1){
@@ -78,7 +78,17 @@ int main() {
                     }
 
                     else if(export == 3){
-                        
+                        int prioridade;
+                        char categoria[50];
+                        printf("Digite a prioridade desejada: ");
+                        scanf("%d", &prioridade);
+                        printf("Digite a categoria desejada: ");
+                        scanf(" %50[^\n]", categoria);
+                        exportarPC(tam, tarefas, prioridade, categoria);
+
+                    }
+                    else{
+                        printf("Exportacao invalida !!!\n");
                     }
 
                 }

@@ -253,7 +253,7 @@ void exportar_prioridade(int tam, struct lista *tarefas, int prioridade){
     }
 }
 
-void exportar_categoria(int tam, struct lista * tarefas, int categoria){
+void exportar_categoria(int tam, struct lista *tarefas, char *categoria){
     FILE *arquivo = fopen("tarefas_por_categoria.txt", "w");
 
     if(arquivo){
@@ -271,5 +271,24 @@ void exportar_categoria(int tam, struct lista * tarefas, int categoria){
     }
     else{
         printf("Erro ao abrir o arquivo para exportação.\n\n");
+    }
+}
+
+void exportarPC(int tam, struct lista *tarefas, int prioridade, char *categoria) {
+    FILE *arquivo = fopen("tarefas.txt", "w");
+    
+    if (arquivo) {
+        for (int i = 0; i < tam; i++) {
+            if (tarefas[i].prioridade == prioridade && compara(tarefas[i].categoria, categoria) == 0) {
+                fprintf(arquivo, "Prioridade: %d\n", tarefas[i].prioridade);
+                fprintf(arquivo, "Categoria: %s\n", tarefas[i].categoria);
+                fprintf(arquivo, "Estado: %d\n", tarefas[i].estado);
+                fprintf(arquivo, "Descricao: %s\n\n", tarefas[i].descricao);
+            }
+        }
+        fclose(arquivo);
+        printf("Tarefas de prioridade %d e categoria '%s' exportadas com sucesso para 'tarefas.txt'\n", prioridade, categoria);
+    } else {
+        printf("Erro ao abrir o arquivo para exportação.\n");
     }
 }
