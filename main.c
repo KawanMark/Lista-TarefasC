@@ -16,7 +16,7 @@ int main() {
     //While True para que o usuario tenha controle aos acessos com agilidade e eficiencia
     while (1) {
         // Apresenta um menu de opções ao usuário
-        printf("\n1. Criar tarefas \n2. Deletar tarefas\n3. Listar suas tarefas\n4. Sair do controle de tarefas\n---------------------------\nInsira o numero da operacao desejada:  ");
+        printf("\n1. Criar tarefas \n2. Deletar tarefas\n3. Listar suas tarefas\n4. Editar tarefas \n5. Sair do controle de tarefas\n---------------------------\nInsira o numero da operacao desejada:  ");
         scanf("%d", &escolha);
 
         //Switch case é usado para menu de opções na qual o programa le a escolha do usuario.
@@ -45,13 +45,19 @@ int main() {
                 printf("\nBem vindo a lista de tarefas\n");
                 lista_tarefas(tam, tarefas); // Chama a função para listar as tarefas
                 break;
-
-            //Caso seja 4, dizemos tchau e a variavel chek passa como 1 para sair do loop.
+            
             case(4):
+                printf("\nBem vindo a edicao de tarefas\n");
+                editar_tarefa(tam, tarefas); // Chama a função para editar uma tarefa
+                break;
+        
+
+            case(5):
                 printf("\nTchau :)\n");
                 escreve(tam, tarefas); // Chama a função para escrever as tarefas em um arquivo e encerra o programa
                 chek = 1; // Define a variável 'chek' como 1 para sair do loop
                 break;
+                
             default:
                 printf("\nNumero invalido, escolha um numero valido\n"); // Mensagem de erro para escolha inválida
                 break;
