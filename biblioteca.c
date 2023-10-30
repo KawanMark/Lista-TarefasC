@@ -270,6 +270,6 @@ void exportar_categoria(int tam, struct lista * tarefas, int categoria){
         printf("Tarefas de categoria %s exportadas com sucesso para 'tarefas_por_categoria.txt'\n", categoria);
     }
     else{
-        printf("Erro ao abrir o arquivo para exportação.\n");
+        printf("Erro ao abrir o arquivo para exportação.\n\n");
     }
 }
