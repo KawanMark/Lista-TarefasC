@@ -232,3 +232,44 @@ void editar_tarefa(int tam, struct lista *tarefas){
 
     escreve(tam, tarefas);
 }
+
+
+void exportar_prioridade(int tam, struct lista *tarefas, int prioridade){
+     FILE *arquivo = fopen("tarefas_por_prioridade.txt", "w");
+    
+    if (arquivo) {
+        for (int i = 0; i < tam; i++) {
+            if (tarefas[i].prioridade == prioridade) {
+                fprintf(arquivo, "Prioridade: %d\n", tarefas[i].prioridade);
+                fprintf(arquivo, "Categoria: %s\n", tarefas[i].categoria);
+                fprintf(arquivo, "Estado: %d\n", tarefas[i].estado);
+                fprintf(arquivo, "Descricao: %s\n\n", tarefas[i].descricao);
+            }
+        }
+        fclose(arquivo);
+        printf("Tarefas de prioridade %d exportadas com sucesso para 'tarefas_por_prioridade.txt'\n", prioridade);
+    } else {
+        printf("Erro ao abrir o arquivo para exportação.\n");
+    }
+}
+
+void exportar_categoria(int tam, struct lista * tarefas, int categoria){
+    FILE *arquivo = fopen("tarefas_por_categoria.txt", "w");
+
+    if(arquivo){
+        for(int i = 0; i < tam; i++){
+            if(compara(tarefas[i].categoria, categoria) == 0){
+                fprintf(arquivo, "Prioridade: %d\n", tarefas[i].prioridade);
+                fprintf(arquivo, "Categoria: %s\n", tarefas[i].categoria);
+                fprintf(arquivo, "Estado: %d\n", tarefas[i].estado);
+                fprintf(arquivo, "Descricao: %s\n\n", tarefas[i].descricao);
+
+            }
+        }
+        fclose(arquivo);
+        printf("Tarefas de categoria %s exportadas com sucesso para 'tarefas_por_categoria.txt'\n", categoria);
+    }
+    else{
+        printf("Erro ao abrir o arquivo para exportação.\n");
+    }
+}

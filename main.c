@@ -16,7 +16,7 @@ int main() {
     //While True para que o usuario tenha controle aos acessos com agilidade e eficiencia
     while (1) {
         // Apresenta um menu de opções ao usuário
-        printf("\n1. Criar tarefas \n2. Deletar tarefas\n3. Listar suas tarefas\n4. Editar tarefas \n5. Sair do controle de tarefas\n---------------------------\nInsira o numero da operacao desejada:  ");
+        printf("\n1. Criar tarefas \n2. Deletar tarefas\n3. Listar suas tarefas\n4. Editar tarefas \n5. Exportar tarefas \n6. Sair do controle de tarefas\n---------------------------\nInsira o numero da operacao desejada:  ");
         scanf("%d", &escolha);
 
         //Switch case é usado para menu de opções na qual o programa le a escolha do usuario.
@@ -50,9 +50,43 @@ int main() {
                 printf("\nBem vindo a edicao de tarefas\n");
                 editar_tarefa(tam, tarefas); // Chama a função para editar uma tarefa
                 break;
-        
 
             case(5):
+                if(tam == 0){
+                    printf("Nenhuma tarefa para exportar !!!\n");
+                }
+                else{
+                    printf("\nBem vindo a exportacao de tarefas\n");
+                    int export;
+                    printf("\n1. Exportar por prioridade\n2. Exportar por categoria\n3. Exportar tudo\n");
+                    scanf("%d", &export);
+
+                    if(export == 1){
+                        int prioridade;
+                        printf("Digite a prioridade que deseja exportar: \n");
+                        scanf("%d", &prioridade);
+                        exportar_prioridade(tam, tarefas, prioridade);
+                        break;
+                    }
+                    
+                    else if(export == 2){
+                        char categoria[50];
+                        printf("Digite a categoria que deseja exportar: \n");
+                        scanf(" %50[^\n]", categoria);
+                        exportar_categoria(tam, tarefas, categoria);
+                        break;
+                    }
+
+                    else if(export == 3){
+                        
+                    }
+
+                }
+                
+
+                break;
+
+            case(6):
                 printf("\nTchau :)\n");
                 escreve(tam, tarefas); // Chama a função para escrever as tarefas em um arquivo e encerra o programa
                 chek = 1; // Define a variável 'chek' como 1 para sair do loop

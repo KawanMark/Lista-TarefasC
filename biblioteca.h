@@ -22,4 +22,8 @@ void escreve(int tam, struct lista *tarefas);
 void apaga_tarefa(int tam, struct lista *tarefas);
 void deleta_tarefa(int *tam, struct lista *tarefas, int numero_tarefa);
 void editar_tarefa(int tam, struct lista *tarefas);
+void bubbleSort(int tam, struct lista *tarefas);
+int compara(char *str1, char *str2);
+void exportar_categoria(int tam, struct lista *tarefas, int categoria);
+void exportar_prioridade(int tam, struct lista *tarefas, int prioridade);
 #endif
