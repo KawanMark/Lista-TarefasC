@@ -11,7 +11,7 @@ void cria_tarefa(struct lista *tarefas)
     // Solicita a prioridade da tarefa ao usuário e valida
     do
     {
-        printf("Insira a prioridade da tarefa (de 1 a 10): ");
+        printf("Insira a prioridade da tarefa (de 1 para mais importante a 10 menos importante): \n");
         scanf("%d", &prioridade);
 
         if (prioridade < 1 || prioridade > 10)
@@ -22,17 +22,17 @@ void cria_tarefa(struct lista *tarefas)
     
     do
     {
-        printf("Insira o estado da tarefa (0 para nao concluica, 1 para concluida: ) ");
+        printf("Insira o estado da tarefa (0 para nao concluica, 1 para concluida e 2 para andamento: ) ");
         scanf("%d", &estado);
 
-        if (estado !=0 && estado != 1)
+        if (estado !=0 && estado != 1 && estado != 2)
         {
             printf("\nATENCAO! Estado invalido. Use numeros de 0 a 1.\n");
         };
 
             
     }
-    while (estado !=0 && estado != 1);
+    while (estado !=0 && estado != 1 && estado != 2);
     
 
     // Preenche informações da tarefa
@@ -44,23 +44,86 @@ void cria_tarefa(struct lista *tarefas)
     scanf(" %99[^\n]", tarefas->descricao);
 }
 
+int compara(char *str1, char *str2){
+    while (*str1 && *str2){
+        if(*str1 < *str2){
+            return -1;
+        }
+        else if(*str1 > *str2){
+            return 1;
+        }
+
+        str1++;
+        str2++;
+    }
+
+    if(*str1){
+        return 1;
+    }
+    else if(*str2){
+        return -1;
+    }
+
+    return 0;
+}
+
+//ordenar tarefas por prioridade.
+void bubbleSort(int tam, struct lista *tarefas){
+    struct lista temp;
+
+    for(int i = 0; i < tam - 1; i++){
+        for(int j = 0; j < tam - i - 1; j++){
+            if(tarefas[j].prioridade > tarefas[j+1].prioridade){
+                //aqui kawan mark troca as tarefas ne 
+                temp = tarefas[j];
+                tarefas[j] = tarefas[j+1];
+                tarefas[j+1] = temp;
+            }
+
+            else if(tarefas[j].prioridade == tarefas[j + 1].prioridade && compara(tarefas[j].categoria, tarefas[j + 1].categoria) > 0){
+                temp = tarefas[j];
+                tarefas[j] = tarefas[j+1];
+                tarefas[j+1] = temp;
+            }
+        }
+    }
+}
+
 // Função para listar as tarefas
 void lista_tarefas(int tam, struct lista *tarefas)
 {
-    printf("Digite o estado da tarefa que deseja listar (0 para nao concluida, 1 para concluida): \n");
+    printf("Digite o estado da tarefa que deseja listar (0 para nao concluida, 1 para concluida e 2 para andamento): \n");
     int estado;
     scanf("%d", &estado);
+
+    bubbleSort(tam, tarefas);
 
     if(estado == 1){
         for (int i = 0; i < tam; i++)
         {
             if(tarefas[i].estado == 1){
+                printf("---------------------------\n");
                 printf("Tarefa %d\n", i + 1);
                 printf("Prioridade: %d\n", tarefas[i].prioridade);
                 printf("Categoria: %s\n", tarefas[i].categoria);
                 printf("Descricao: %s\n\n", tarefas[i].descricao);
                 printf("Estado: Concluida\n\n");
+                printf("---------------------------\n");
 
+            }
+        }
+    }
+
+    else if(estado == 2){
+        for(int i = 0; i < tam; i++){
+            if(tarefas[i].estado == 2){
+                printf("---------------------------\n");
+                printf("Tarefa %d\n", i + 1);
+                printf("Prioridade: %d\n", tarefas[i].prioridade);
+                printf("Categoria: %s\n", tarefas[i].categoria);
+                printf("Descricao: %s\n\n", tarefas[i].descricao);
+                printf("Estado: Em andamento...\n\n");
+                printf("---------------------------\n");
             }
         }
     }
@@ -68,11 +131,13 @@ void lista_tarefas(int tam, struct lista *tarefas)
     else if(estado == 0){
         for(int i = 0; i < tam; i++){
             if(tarefas[i].estado == 0 ){
+                printf("---------------------------\n");
                 printf("Tarefa %d\n", i + 1);
                 printf("Prioridade: %d\n", tarefas[i].prioridade);
                 printf("Categoria: %s\n", tarefas[i].categoria);
                 printf("Descricao: %s\n\n", tarefas[i].descricao);
-                printf("Estado: Concluida\n\n");
+                printf("Estado: Nao Concluida\n\n");
+                printf("---------------------------\n");
 
             }
         }
@@ -149,7 +214,7 @@ void editar_tarefa(int tam, struct lista *tarefas){
 
     int novo_estado;
     do {
-        printf("Insira o novo estado da tarefa (0 para não concluída, 1 para concluída): ");
+        printf("Insira o novo estado da tarefa (0 para não concluída, 1 para concluída e 2 para em andamento): ");
         scanf("%d", &novo_estado);
         if (novo_estado != 0 && novo_estado != 1) {
             printf("ATENCAO! Estado inválido. Use 0 ou 1.\n");
