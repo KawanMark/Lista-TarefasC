@@ -45,12 +45,12 @@ int main() {
                 printf("\nBem vindo a lista de tarefas\n");
                 lista_tarefas(tam, tarefas); // Chama a função para listar as tarefas
                 break;
-            
+            // caso seja 4, exibe uma mensagem de bem vindo e chama a funçaõ de editar tarefa, passando o tamanho atual da lista de tarefas e o array de tarefas
             case(4):
                 printf("\nBem vindo a edicao de tarefas\n");
                 editar_tarefa(tam, tarefas); // Chama a função para editar uma tarefa
                 break;
-
+            // caso seja 5, exibe uma mensagem de bem vindo e chama a função de exportar tarefa, passando o tamanho atual da lista de tarefas e o array de tarefas
             case(5):
                 if(tam == 0){
                     printf("Nenhuma tarefa para exportar !!!\n");
