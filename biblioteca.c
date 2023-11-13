@@ -102,15 +102,18 @@ void bubbleSort(int tam, struct lista *tarefas){
 // Função para listar as tarefas, na qual pedimos o estado da tarefa ou todas as tarefas.
 void lista_tarefas(int tam, struct lista *tarefas)
 {
-    printf("Insira o estado da tarefa: \n");
+    printf("Insira o estado ou categoria da tarefa: \n");
     printf("0 para nao concluida\n");
     printf("1 para concluida\n");
     printf("2 para andamento\n");
     printf("3 para todas as tarefas\n");
+    printf("4 para categorias\n ");
     int estado;
     scanf("%d", &estado);
 
     bubbleSort(tam, tarefas); // chamando a função acima para ordenar.
+
+
 
     if(estado == 1){ // se o estado for 1, percorra a lista de tarefas e printe as tarefas concluidas.
         for (int i = 0; i < tam; i++)
@@ -167,6 +170,26 @@ void lista_tarefas(int tam, struct lista *tarefas)
 
             }
         }
+    }
+
+    else if(estado == 4){
+        char categoria[50];
+        printf("Digite a categoria que deseja listar: \n");
+        scanf(" %50[^\n]", categoria);
+        for(int i = 0; i < tam; i++){
+            if(compara(tarefas[i].categoria, categoria) == 0){
+                printf("---------------------------\n");
+                printf("Tarefa %d\n", i + 1);
+                printf("Prioridade: %d\n", tarefas[i].prioridade);
+                printf("Categoria: %s\n", tarefas[i].categoria);
+                printf("Descricao: %s\n\n", tarefas[i].descricao);
+                printf("Estado: %d\n\n", tarefas[i].estado);
+                printf("---------------------------\n");
+            }
+        }
+    }
+    else{
+        printf("Estado invalido !!!\n");
     }
 }
 
@@ -238,16 +261,17 @@ void editar_tarefa(int tam, struct lista *tarefas){
         return;
     }
     printf("Insira a nova prioridade da tarefa: ");
+    printf("1 para mais importante e 10 para menos importante: ");
     scanf("%d", &tarefas[numero_tarefa - 1].prioridade);
 
     int novo_estado;
     do {
         printf("Insira o novo estado da tarefa (0 para não concluída, 1 para concluída e 2 para em andamento): ");
         scanf("%d", &novo_estado);
-        if (novo_estado != 0 && novo_estado != 1) {
-            printf("ATENCAO! Estado inválido. Use 0 ou 1.\n");
+        if (novo_estado != 0 && novo_estado != 1 && novo_estado != 2) {
+            printf("ATENCAO! Estado inválido. Use 0, 1 ou 2.\n");
         }
-    } while (novo_estado != 0 && novo_estado != 1);
+    } while (novo_estado != 0 && novo_estado != 1 && novo_estado != 2);
     
     tarefas[numero_tarefa - 1].estado = novo_estado;
 
